@@ -1,0 +1,22 @@
+﻿# Build outputs
+/build
+/out
+/.vscode
+/.idea
+*.obj
+*.o
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.lib
+*.dll
+*.exe
+.DS_Store
+
+# Test/build caches
+CMakeCache.txt
+CMakeFiles/
+Testing/
+compile_commands.json
+.vs/
