@@ -1,6 +1,9 @@
-﻿# Public claim (algorithms)
+# Public claim (algorithms)
 
-- This leaf was extracted from `c:\\dev\\state\\met\\WARDEN\\src\\algorithms`.
-- Scope is limited to statistical/math utility components.
-- No private credentials, operator notes, or infrastructure targets are exported.
-- This module is safe to publish as a standalone C++ leaf under the project public policy.
+- `warden-algorithms` is a public analytics leaf derived from a private WARDEN
+  algorithms module.
+- Scope is limited to statistical and mathematical utility components in
+  `include/algorithms/`.
+- The exported surface is a standalone C++23 CMake target with focused tests.
+- No private credentials, operator notes, infrastructure targets, or protected
+  workflow material are exported.
