@@ -1,16 +1,16 @@
-// Derived from: QUANTA-UNIVERSE/oracle/ numeric utilities + foundation::math patterns
+// Numeric utilities
 // =============================================================================
 // algorithms/_numeric.hpp -- Internal numeric primitives
 //
 // Welford streaming variance, log-sum-exp, banded/small-matrix linear algebra.
 // All routines are template-free or constrained to double; stdlib only.
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_NUMERIC_HPP
-#define WARDEN_ALGORITHMS_NUMERIC_HPP
+#ifndef SIGNAL_KERNELS_NUMERIC_HPP
+#define SIGNAL_KERNELS_NUMERIC_HPP
 
 #include <algorithm>
 #include <cassert>
@@ -21,7 +21,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
 // WelfordAccumulator — O(1)-per-sample numerically stable variance
@@ -193,6 +193,6 @@ inline void yule_walker(std::span<const double> series,
     phi = rhs;
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_NUMERIC_HPP
+#endif // SIGNAL_KERNELS_NUMERIC_HPP

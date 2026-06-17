@@ -16,7 +16,7 @@
 #include <cmath>
 #include <vector>
 
-using namespace warden::algorithms;
+using namespace signal_kernels::algorithms;
 
 TEST_SUITE("algorithms::changepoint") {
 
@@ -67,10 +67,17 @@ TEST_SUITE("algorithms::changepoint") {
         CHECK(c == doctest::Approx(0.0).epsilon(1e-9));
     }
 
-    TEST_CASE("cost_poisson non-negative on positive data") {
+    TEST_CASE("cost_poisson matches the PELT Poisson NLL formula") {
+        // PELT Poisson segment cost = -2*n*(mu*log(mu) - mu), dropping the
+        // 2*sum(log(x_i!)) constant that cancels in segment comparisons. This
+        // cost is NOT constrained to be non-negative: for a segment mean mu > e
+        // it is negative (here mu = 3 > e). Only cost DIFFERENCES are
+        // meaningful, so the correct check is the exact known value.
         std::vector<double> s = {1.0, 2.0, 3.0, 4.0, 5.0};
+        const double mu = 3.0; // mean of {1,2,3,4,5}
+        const double expected = -2.0 * 5.0 * (mu * std::log(mu) - mu);
         double c = cost_poisson(s, 0, 5);
-        CHECK(c >= 0.0);
+        CHECK(c == doctest::Approx(expected));
     }
 
     TEST_CASE("bic_penalty > aic_penalty for n=100") {

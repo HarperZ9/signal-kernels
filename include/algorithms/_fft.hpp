@@ -1,4 +1,4 @@
-// Derived from: QUANTA-UNIVERSE/entropy/ spectral_entropy — radix-2 Cooley-Tukey FFT
+// Radix-2 Cooley-Tukey FFT
 // =============================================================================
 // algorithms/_fft.hpp -- Radix-2 Cooley-Tukey FFT (internal)
 //
@@ -8,12 +8,12 @@
 //   - Forward transform: exp(-2πi k n / N).
 //   - Inverse transform: divide by N after forward on conjugate.
 //
-// Namespace: warden::algorithms::detail
+// Namespace: signal_kernels::algorithms::detail
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_FFT_HPP
-#define WARDEN_ALGORITHMS_FFT_HPP
+#ifndef SIGNAL_KERNELS_FFT_HPP
+#define SIGNAL_KERNELS_FFT_HPP
 
 #include <cassert>
 #include <cmath>
@@ -23,7 +23,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace warden::algorithms::detail {
+namespace signal_kernels::algorithms::detail {
 
 // Returns true iff n is a power of two (n > 0).
 [[nodiscard]] constexpr bool is_power_of_two(size_t n) noexcept {
@@ -118,6 +118,6 @@ power_spectrum(const std::vector<double>& real_signal) {
     return mag;
 }
 
-} // namespace warden::algorithms::detail
+} // namespace signal_kernels::algorithms::detail
 
-#endif // WARDEN_ALGORITHMS_FFT_HPP
+#endif // SIGNAL_KERNELS_FFT_HPP

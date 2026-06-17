@@ -1,5 +1,5 @@
-// Derived from: QUANTA-UNIVERSE/delta/lib.quanta — Forman-Ricci curvature
-//               Reference: Forman (2003); Ollivier (2009 Ricci flow on MM)
+// Forman-Ricci curvature
+//   Reference: Forman (2003); Ollivier (2009 Ricci flow on MM)
 // =============================================================================
 // algorithms/curvature.hpp -- Graph curvature: Forman-Ricci + Ollivier-Ricci
 //
@@ -19,12 +19,12 @@
 //   and W_1 is the 1-Wasserstein distance (EMD) solved here with a simple
 //   exact O(k log k) sorting-based method for unweighted graphs.
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_CURVATURE_HPP
-#define WARDEN_ALGORITHMS_CURVATURE_HPP
+#ifndef SIGNAL_KERNELS_CURVATURE_HPP
+#define SIGNAL_KERNELS_CURVATURE_HPP
 
 #include "algorithms/_numeric.hpp"
 
@@ -43,7 +43,7 @@
 #include <unordered_set>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 using NodeId = uint32_t;
 
@@ -274,6 +274,6 @@ ollivier_ricci(const Graph& g,
     return 1.0 - wass / d_uv;
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_CURVATURE_HPP
+#endif // SIGNAL_KERNELS_CURVATURE_HPP

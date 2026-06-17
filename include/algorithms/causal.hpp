@@ -1,4 +1,4 @@
-// Derived from: QUANTA-UNIVERSE/oracle/causal.quanta — Granger causality
+// Granger causality
 // =============================================================================
 // algorithms/causal.hpp -- Granger causality test
 //
@@ -11,12 +11,12 @@
 //
 // p-value approximation: Snedecor F CDF via regularized incomplete Beta.
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_CAUSAL_HPP
-#define WARDEN_ALGORITHMS_CAUSAL_HPP
+#ifndef SIGNAL_KERNELS_CAUSAL_HPP
+#define SIGNAL_KERNELS_CAUSAL_HPP
 
 #include "algorithms/_numeric.hpp"
 
@@ -26,7 +26,7 @@
 #include <span>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
 // GrangerResult
@@ -179,6 +179,6 @@ granger_causality(std::span<const double> x,
     return best;
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_CAUSAL_HPP
+#endif // SIGNAL_KERNELS_CAUSAL_HPP
