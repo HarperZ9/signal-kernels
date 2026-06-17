@@ -17,7 +17,7 @@
 #include <numbers>
 #include <vector>
 
-using namespace warden::algorithms::detail;
+using namespace signal_kernels::algorithms::detail;
 
 TEST_SUITE("algorithms::_fft") {
 
@@ -36,7 +36,9 @@ TEST_SUITE("algorithms::_fft") {
         std::vector<std::complex<double>> x(N);
         for (size_t n = 0; n < N; ++n) {
             double phase = 2.0 * std::numbers::pi * K * n / N;
-            x[n] = {std::cos(phase), -std::sin(phase)};
+            // exp(+i*theta): under the forward DFT kernel exp(-i*2pi*k*n/N) this
+            // places the unit tone at bin K. exp(-i*theta) would land at N-K.
+            x[n] = {std::cos(phase), std::sin(phase)};
         }
         fft_inplace(x, -1);
         double peak = std::abs(x[K]);

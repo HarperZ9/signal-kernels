@@ -1,4 +1,4 @@
-// Derived from: QUANTA-UNIVERSE/oracle/forecasting.quanta — SARIMA + VAR
+// SARIMA + VAR forecasting
 // =============================================================================
 // algorithms/forecast.hpp -- Time series forecasting: SARIMA + VAR
 //
@@ -7,12 +7,12 @@
 //
 // VAR: Yule-Walker multivariate AR estimation. fit() accepts up to 16 series.
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_FORECAST_HPP
-#define WARDEN_ALGORITHMS_FORECAST_HPP
+#ifndef SIGNAL_KERNELS_FORECAST_HPP
+#define SIGNAL_KERNELS_FORECAST_HPP
 
 #include "algorithms/_numeric.hpp"
 
@@ -25,7 +25,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // =============================================================================
 // SARIMA
@@ -37,13 +37,15 @@ public:
     // Construction — (p,d,q)(P,D,Q)[s]
     // -------------------------------------------------------------------------
     SARIMA(int p, int d, int q, int P, int D, int Q, int s)
-        : p_(p), d_(d), q_(q), P_(P), D_(D), Q_(Q), s_(s)
-        , ar_(p, 0.0), ma_(q, 0.0)
-        , sar_(P, 0.0), sma_(Q, 0.0)
-    {
-        if (p < 0 || d < 0 || q < 0 || P < 0 || D < 0 || Q < 0 || s < 0)
-            throw std::invalid_argument("SARIMA: negative orders not allowed");
-    }
+        // validate_orders() runs while initializing the first-declared member
+        // (p_), BEFORE the ar_/ma_/sar_/sma_ vectors are sized — so a negative
+        // order throws std::invalid_argument rather than the std::length_error
+        // that constructing a negative-sized vector would raise.
+        : p_((validate_orders(p, d, q, P, D, Q, s), p))
+        , d_(d), q_(q), P_(P), D_(D), Q_(Q), s_(s)
+        , ar_(static_cast<size_t>(p), 0.0), ma_(static_cast<size_t>(q), 0.0)
+        , sar_(static_cast<size_t>(P), 0.0), sma_(static_cast<size_t>(Q), 0.0)
+    {}
 
     // -------------------------------------------------------------------------
     // fit — estimate parameters from a double[] series (span)
@@ -57,7 +59,7 @@ public:
 
         init_params(differenced_);
 
-        // CSS gradient descent (50 iterations as in QUANTA oracle)
+        // CSS gradient descent (50 iterations)
         for (int iter = 0; iter < 50; ++iter) {
             compute_residuals(differenced_);
             update_params(differenced_);
@@ -133,6 +135,11 @@ private:
     std::vector<double> ar_, ma_, sar_, sma_;
     std::vector<double> original_, differenced_, residuals_;
 
+    static void validate_orders(int p, int d, int q, int P, int D, int Q, int s) {
+        if (p < 0 || d < 0 || q < 0 || P < 0 || D < 0 || Q < 0 || s < 0)
+            throw std::invalid_argument("SARIMA: negative orders not allowed");
+    }
+
     [[nodiscard]] size_t min_obs() const noexcept {
         return static_cast<size_t>(p_ + s_ * P_ + q_ + s_ * Q_ + 1);
     }
@@ -206,9 +213,16 @@ private:
         for (size_t k = 0; k <= max_k; ++k)
             acf[k] = autocorrelation(sv, k);
 
-        // Initialize AR params from ACF (simple Yule-Walker approximation)
-        for (int j = 0; j < p_ && j + 1 < static_cast<int>(acf.size()); ++j)
-            ar_[static_cast<size_t>(j)] = acf[static_cast<size_t>(j + 1)] * 0.5;
+        // Initialize AR params via Yule-Walker (the exact estimator for a pure
+        // AR process), giving a stable, accurate starting point for the CSS
+        // gradient refinement below.
+        if (p_ > 0) {
+            std::vector<double> yw;
+            yule_walker(sv, p_, yw);
+            for (int j = 0; j < p_ && static_cast<size_t>(j) < yw.size(); ++j)
+                ar_[static_cast<size_t>(j)] =
+                    std::clamp(yw[static_cast<size_t>(j)], -0.99, 0.99);
+        }
         for (int j = 0; j < P_; ++j) {
             size_t lag = static_cast<size_t>((j + 1) * s_);
             if (lag < acf.size())
@@ -244,37 +258,56 @@ private:
     }
 
     void update_params(const std::vector<double>& v) {
-        constexpr double lr = 0.01;
+        // Batch gradient descent on the MEAN gradient. The previous version
+        // summed lr*e over all (n - start) samples, so the effective step
+        // scaled with sample count: for n=500 the intercept feedback factor was
+        // (1 - lr*n) = -4, diverging geometrically (~1e26) and saturating the
+        // AR coefficient at its clamp. Averaging makes the step independent of
+        // n, so the update is stable.
+        constexpr double lr = 0.1;
         const size_t n     = v.size();
         const size_t start = max_lag();
+        if (n <= start) return;
+        const double scale = lr / static_cast<double>(n - start);
+
+        double g_int = 0.0;
+        std::vector<double> g_ar(ar_.size(), 0.0), g_sar(sar_.size(), 0.0);
+        std::vector<double> g_ma(ma_.size(), 0.0), g_sma(sma_.size(), 0.0);
+
         for (size_t t = start; t < n; ++t) {
-            double e = residuals_[t];
-            intercept_ += lr * e;
+            const double e = residuals_[t];
+            g_int += e;
             for (int j = 0; j < p_; ++j)
-                ar_[static_cast<size_t>(j)] =
-                    std::clamp(ar_[static_cast<size_t>(j)] + lr * e * v[t - static_cast<size_t>(j) - 1],
-                               -0.99, 0.99);
+                g_ar[static_cast<size_t>(j)] += e * v[t - static_cast<size_t>(j) - 1];
             for (int j = 0; j < P_; ++j) {
                 size_t lag = static_cast<size_t>((j + 1) * s_);
                 if (t >= lag)
-                    sar_[static_cast<size_t>(j)] =
-                        std::clamp(sar_[static_cast<size_t>(j)] + lr * e * v[t - lag],
-                                   -0.99, 0.99);
+                    g_sar[static_cast<size_t>(j)] += e * v[t - lag];
             }
             for (int j = 0; j < q_; ++j) {
                 if (t > static_cast<size_t>(j))
-                    ma_[static_cast<size_t>(j)] =
-                        std::clamp(ma_[static_cast<size_t>(j)] + lr * e * residuals_[t - static_cast<size_t>(j) - 1],
-                                   -0.99, 0.99);
+                    g_ma[static_cast<size_t>(j)] += e * residuals_[t - static_cast<size_t>(j) - 1];
             }
             for (int j = 0; j < Q_; ++j) {
                 size_t lag = static_cast<size_t>((j + 1) * s_);
                 if (t >= lag)
-                    sma_[static_cast<size_t>(j)] =
-                        std::clamp(sma_[static_cast<size_t>(j)] + lr * e * residuals_[t - lag],
-                                   -0.99, 0.99);
+                    g_sma[static_cast<size_t>(j)] += e * residuals_[t - lag];
             }
         }
+
+        intercept_ += scale * g_int;
+        for (int j = 0; j < p_; ++j)
+            ar_[static_cast<size_t>(j)] =
+                std::clamp(ar_[static_cast<size_t>(j)] + scale * g_ar[static_cast<size_t>(j)], -0.99, 0.99);
+        for (int j = 0; j < P_; ++j)
+            sar_[static_cast<size_t>(j)] =
+                std::clamp(sar_[static_cast<size_t>(j)] + scale * g_sar[static_cast<size_t>(j)], -0.99, 0.99);
+        for (int j = 0; j < q_; ++j)
+            ma_[static_cast<size_t>(j)] =
+                std::clamp(ma_[static_cast<size_t>(j)] + scale * g_ma[static_cast<size_t>(j)], -0.99, 0.99);
+        for (int j = 0; j < Q_; ++j)
+            sma_[static_cast<size_t>(j)] =
+                std::clamp(sma_[static_cast<size_t>(j)] + scale * g_sma[static_cast<size_t>(j)], -0.99, 0.99);
     }
 };
 
@@ -363,6 +396,6 @@ private:
     std::vector<std::vector<double>> last_obs_;
 };
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_FORECAST_HPP
+#endif // SIGNAL_KERNELS_FORECAST_HPP

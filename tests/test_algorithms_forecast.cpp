@@ -16,7 +16,7 @@
 #include <cmath>
 #include <vector>
 
-using namespace warden::algorithms;
+using namespace signal_kernels::algorithms;
 
 static std::vector<double> make_ar1(double phi, int n, double sigma = 0.05) {
     // Generate AR(1) series: x_t = phi * x_{t-1} + N(0, sigma)

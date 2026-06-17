@@ -1,5 +1,5 @@
-// Derived from: QUANTA-UNIVERSE/oracle/changepoint.quanta — PELT algorithm
-//               Reference: Killick, Fearnhead, Eckley (2012) JASA
+// PELT change-point detection
+//   Reference: Killick, Fearnhead, Eckley (2012) JASA
 // =============================================================================
 // algorithms/changepoint.hpp -- PELT change-point detection
 //
@@ -7,12 +7,12 @@
 // Cost functions: cost_l2, cost_l1, cost_poisson.
 // Penalty helpers: bic_penalty, aic_penalty.
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_CHANGEPOINT_HPP
-#define WARDEN_ALGORITHMS_CHANGEPOINT_HPP
+#ifndef SIGNAL_KERNELS_CHANGEPOINT_HPP
+#define SIGNAL_KERNELS_CHANGEPOINT_HPP
 
 #include "algorithms/_numeric.hpp"
 
@@ -22,11 +22,12 @@
 #include <cstddef>
 #include <functional>
 #include <limits>
+#include <memory>
 #include <numeric>
 #include <span>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
 // Changepoint — detected change point with location and segment cost
@@ -239,6 +240,6 @@ pelt(std::span<const double> series,
     return result;
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_CHANGEPOINT_HPP
+#endif // SIGNAL_KERNELS_CHANGEPOINT_HPP

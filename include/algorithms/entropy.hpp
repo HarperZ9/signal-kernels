@@ -1,5 +1,4 @@
-// Derived from: QUANTA-UNIVERSE/entropy/lib.quanta — Shannon, Rényi, Tsallis,
-//               block, min, spectral, permutation entropy
+// Shannon, Rényi, Tsallis, block, min, spectral, permutation entropy
 // =============================================================================
 // algorithms/entropy.hpp -- Information-theoretic entropy measures
 //
@@ -7,12 +6,12 @@
 // Probabilities are assumed to be non-negative and sum to 1; counts are
 // converted internally.  Log base 2 throughout (bits).
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_ENTROPY_HPP
-#define WARDEN_ALGORITHMS_ENTROPY_HPP
+#ifndef SIGNAL_KERNELS_ENTROPY_HPP
+#define SIGNAL_KERNELS_ENTROPY_HPP
 
 #include "algorithms/_fft.hpp"
 #include "algorithms/_numeric.hpp"
@@ -27,7 +26,7 @@
 #include <stdexcept>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
 // shannon — H = -sum(p * log2(p))  [bits]
@@ -222,6 +221,6 @@ permutation_entropy(std::span<const double> series,
     return shannon_from_counts(c);
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_ENTROPY_HPP
+#endif // SIGNAL_KERNELS_ENTROPY_HPP

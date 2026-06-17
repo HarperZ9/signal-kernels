@@ -15,7 +15,7 @@
 
 #include <cmath>
 
-using namespace warden::algorithms;
+using namespace signal_kernels::algorithms;
 
 TEST_SUITE("algorithms::curvature") {
 

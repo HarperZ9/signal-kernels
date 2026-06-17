@@ -15,7 +15,7 @@
 #include <cmath>
 #include <vector>
 
-using namespace warden::algorithms;
+using namespace signal_kernels::algorithms;
 
 TEST_SUITE("algorithms::_numeric") {
 

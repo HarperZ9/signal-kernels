@@ -1,5 +1,4 @@
-// Derived from: QUANTA-UNIVERSE/entangle/lib.quanta — mutual information,
-//               transfer entropy, KL/JS/Hellinger/Wasserstein
+// Mutual information, transfer entropy, KL/JS/Hellinger/Wasserstein
 // =============================================================================
 // algorithms/information.hpp -- Information-theoretic divergences + TE
 //
@@ -10,12 +9,12 @@
 // hellinger           — Hellinger distance
 // wasserstein_1d      — Earth Mover's Distance on sorted univariate distributions
 //
-// Namespace: warden::algorithms
+// Namespace: signal_kernels::algorithms
 // =============================================================================
 
 #pragma once
-#ifndef WARDEN_ALGORITHMS_INFORMATION_HPP
-#define WARDEN_ALGORITHMS_INFORMATION_HPP
+#ifndef SIGNAL_KERNELS_INFORMATION_HPP
+#define SIGNAL_KERNELS_INFORMATION_HPP
 
 #include "algorithms/_numeric.hpp"
 #include "algorithms/entropy.hpp"
@@ -27,7 +26,7 @@
 #include <span>
 #include <vector>
 
-namespace warden::algorithms {
+namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
 // histogram_bin — map value in [lo, hi] to bin index in [0, bins)
@@ -127,7 +126,6 @@ transfer_entropy(std::span<const double> source,
     // Count joint and marginal tables
     // State = (y_{t+1}, y_t^{(1)}, x_t^{(1)}) — use l=k=1 regardless of arg
     // for the histogram approach (general k,l would require exponential tables)
-    const size_t nl  = n - lag;
     std::map<std::tuple<int,int,int>, uint64_t> joint3; // (y+1, yl, xl)
     std::map<std::pair<int,int>,       uint64_t> joint2; // (y+1, yl)
 
@@ -270,6 +268,6 @@ wasserstein_1d(std::span<const double> u,
     return emd;
 }
 
-} // namespace warden::algorithms
+} // namespace signal_kernels::algorithms
 
-#endif // WARDEN_ALGORITHMS_INFORMATION_HPP
+#endif // SIGNAL_KERNELS_INFORMATION_HPP

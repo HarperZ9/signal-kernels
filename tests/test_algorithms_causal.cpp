@@ -15,7 +15,7 @@
 #include <cmath>
 #include <vector>
 
-using namespace warden::algorithms;
+using namespace signal_kernels::algorithms;
 
 static std::vector<double> white_noise(int n, uint64_t seed = 42) {
     std::vector<double> s(static_cast<size_t>(n));
