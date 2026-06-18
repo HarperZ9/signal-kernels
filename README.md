@@ -57,13 +57,32 @@ Then include the headers you need:
 double h = signal_kernels::algorithms::shannon(probs);
 ```
 
+See [USAGE.md](USAGE.md) for a full walkthrough — the public function/class
+list per header, worked examples with expected output, and build notes. A
+single end-to-end program lives at
+[`examples/demo_pipeline.cpp`](examples/demo_pipeline.cpp).
+
+## Platform
+
+The bundled `CMakeLists.txt` targets **Windows x64 / MSVC only** and stops with
+a fatal error on other platforms. The library is header-only and uses only the
+C++23 standard library, so the headers can be compiled with other conforming
+toolchains if you bypass the bundled CMake configuration.
+
 ## Building and testing
 
 ```bash
-cmake -S . -B build
-cmake --build build
-ctest --test-dir build --output-on-failure
+cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
+cmake --build build --config Debug
+ctest --test-dir build -C Debug --output-on-failure
 ```
+
+Tests are gated on `SIGNAL_KERNELS_BUILD_TESTS` (defaults to `ON` only when
+`signal-kernels` is the top-level project). They use
+[doctest](https://github.com/doctest/doctest): a vendored copy at
+`tests/third_party/doctest/doctest.h` is used if present, otherwise doctest
+`v2.4.11` is fetched via `FetchContent`. This test-only dependency does not
+affect consumers of the header-only library.
 
 ## License
 
