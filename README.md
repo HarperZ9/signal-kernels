@@ -1,7 +1,12 @@
-# signal-kernels
+# Signal Kernels
 
-A standalone, header-only C++23 library of signal-processing and
-information-theory algorithms.
+> Header-only C++23 signal/information-theory library: entropy, MI/transfer entropy, divergences, Granger, PELT, FFT, and forecasting.
+
+[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+![C++23](https://img.shields.io/badge/C%2B%2B-23-blue.svg)
+[![CI](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml/badge.svg)](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml)
+![header-only](https://img.shields.io/badge/header--only-C%2B%2B23-success.svg)
+[![part of: AI-accountability toolkit](https://img.shields.io/badge/part_of-AI--accountability_toolkit-7a5cff.svg)](https://harperz9.github.io)
 
 ## Overview
 
@@ -63,3 +68,8 @@ ctest --test-dir build --output-on-failure
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+---
+**Zain Dana Harper** — small tools with explicit edges.
+[Portfolio](https://harperz9.github.io) · [HarperZ9](https://github.com/HarperZ9)
+<sub>Built with Claude Code; reviewed, tested, and owned by me.</sub>
