@@ -55,7 +55,7 @@ if(SIGNAL_KERNELS_BUILD_TESTS)
 
     if(EXISTS "${_vendored_doctest}")
         add_library(doctest INTERFACE)
-        target_include_directories(doctest INTERFACE
+        target_include_directories(doctest SYSTEM INTERFACE
             "${CMAKE_CURRENT_SOURCE_DIR}/tests/third_party")
         add_library(doctest::doctest ALIAS doctest)
         message(STATUS "signal-kernels: using vendored doctest at ${_vendored_doctest}")
@@ -86,6 +86,13 @@ if(SIGNAL_KERNELS_BUILD_TESTS)
     target_link_libraries(signal-kernels-tests
         PRIVATE signal-kernels doctest::doctest
     )
+
+    # Third-party doctest trips C5285 (specializing std::tuple, forbidden by
+    # N5014) on newer MSVC; with /WX that becomes a hard error. Suppress that one
+    # warning for the test target only — first-party code keeps strict /W4 /WX.
+    if(MSVC)
+        target_compile_options(signal-kernels-tests PRIVATE /wd5285)
+    endif()
 
     add_test(NAME signal-kernels-tests COMMAND signal-kernels-tests)
 endif()
