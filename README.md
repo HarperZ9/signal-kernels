@@ -128,3 +128,13 @@ MIT. See [LICENSE](LICENSE).
 **Zain Dana Harper** — small tools with explicit edges.
 [Portfolio](https://harperz9.github.io) · [HarperZ9](https://github.com/HarperZ9)
 <sub>Built with Claude Code; reviewed, tested, and owned by me.</sub>
+
+## For developers
+
+Keep the public README, build notes, and examples aligned with current behavior. Before opening a PR or pushing a release, run the local native verification path.
+
+```bash
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
+```
