@@ -1,5 +1,41 @@
 # Signal Kernels
 
+![Signal Kernels hero](docs/brand/signal-kernels-hero.png)
+
+> Analyze information flow with C++23 signal, entropy, causality, and forecasting kernels.
+
+Signal Kernels is a header-only C++23 library for scientific signal processing
+and telemetry analytics. It includes entropy measures, divergence metrics,
+causal tests, change-point detection, FFT helpers, graph curvature, and
+forecasting primitives.
+
+## Why it matters
+
+Large AI and research systems need reliable measurement kernels before a model
+interprets noisy data. This repo provides public, testable primitives that can
+feed receipt-backed scientific and operational workflows.
+
+## Try it
+
+```bash
+cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
+cmake --build build --config Debug
+ctest --test-dir build -C Debug --output-on-failure
+```
+
+## What to test first
+
+- Build the CMake project with tests enabled.
+- Run CTest.
+- Include `algorithms/entropy.hpp` or another module in a small C++ target.
+
+## Current status
+
+Header-only C++23 library with unit tests. The bundled CMake setup targets
+Windows x64/MSVC, while the headers are standard-library-only.
+
+## Existing technical notes
+
 > Header-only C++23 signal/information-theory library: entropy, MI/transfer entropy, divergences, Granger, PELT, FFT, and forecasting.
 
 [![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
