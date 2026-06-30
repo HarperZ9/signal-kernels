@@ -34,11 +34,11 @@ namespace signal_kernels::algorithms {
 class SARIMA {
 public:
     // -------------------------------------------------------------------------
-    // Construction — (p,d,q)(P,D,Q)[s]
+    // Construction -- (p,d,q)(P,D,Q)[s]
     // -------------------------------------------------------------------------
     SARIMA(int p, int d, int q, int P, int D, int Q, int s)
         // validate_orders() runs while initializing the first-declared member
-        // (p_), BEFORE the ar_/ma_/sar_/sma_ vectors are sized — so a negative
+        // (p_), BEFORE the ar_/ma_/sar_/sma_ vectors are sized -- so a negative
         // order throws std::invalid_argument rather than the std::length_error
         // that constructing a negative-sized vector would raise.
         : p_((validate_orders(p, d, q, P, D, Q, s), p))
@@ -48,14 +48,14 @@ public:
     {}
 
     // -------------------------------------------------------------------------
-    // fit — estimate parameters from a double[] series (span)
+    // fit -- estimate parameters from a double[] series (span)
     // -------------------------------------------------------------------------
     void fit(std::span<const double> series) {
         original_.assign(series.begin(), series.end());
         differenced_ = difference(original_);
         const size_t n = differenced_.size();
 
-        if (n < min_obs()) return; // not enough data — leave at zero init
+        if (n < min_obs()) return; // not enough data -- leave at zero init
 
         init_params(differenced_);
 
@@ -78,7 +78,7 @@ public:
     }
 
     // -------------------------------------------------------------------------
-    // forecast — generate `horizon` point forecasts (integrated back)
+    // forecast -- generate `horizon` point forecasts (integrated back)
     // -------------------------------------------------------------------------
     [[nodiscard]] std::vector<double> forecast(size_t horizon) const {
         if (!fitted_ || horizon == 0) return std::vector<double>(horizon, 0.0);
@@ -312,7 +312,7 @@ private:
 };
 
 // =============================================================================
-// VAR — Vector Autoregression (Yule-Walker estimation)
+// VAR -- Vector Autoregression (Yule-Walker estimation)
 // =============================================================================
 
 class VAR {
@@ -322,7 +322,7 @@ public:
     }
 
     // -------------------------------------------------------------------------
-    // fit — accepts up to 16 equal-length time series
+    // fit -- accepts up to 16 equal-length time series
     // -------------------------------------------------------------------------
     void fit(const std::vector<std::vector<double>>& multiseries) {
         const size_t k = multiseries.size();
@@ -353,7 +353,7 @@ public:
     }
 
     // -------------------------------------------------------------------------
-    // forecast — returns a vector<vector<double>> of shape [horizon][k]
+    // forecast -- returns a vector<vector<double>> of shape [horizon][k]
     // -------------------------------------------------------------------------
     [[nodiscard]] std::vector<std::vector<double>> forecast(size_t horizon) const {
         if (!fitted_ || horizon == 0)

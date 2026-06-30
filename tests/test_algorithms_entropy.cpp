@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — entropy module
+// Tests: algorithms -- entropy module
 //
 // Known-value checks:
 //   - Shannon uniform-8 = 3.0 bits

@@ -1,7 +1,7 @@
 # Usage
 
 `signal-kernels` is a **header-only C++23** library. There is no compiled
-library to install and no command-line tool — you consume it by adding its
+library to install and no command-line tool -- you consume it by adding its
 `include/` directory to your build and `#include`-ing the headers you need.
 
 All public functions and types live in the namespace
@@ -34,7 +34,7 @@ The `signal-kernels` target is an `INTERFACE` library: linking it just adds the
 Add `include/` to your compiler's header search path and compile with C++23:
 
 ```bash
-# MSVC (the supported toolchain — see "Platform" below)
+# MSVC (the supported toolchain -- see "Platform" below)
 cl /std:c++latest /EHsc /I path\to\signal-kernels\include your_app.cpp
 ```
 
@@ -155,7 +155,7 @@ same series.
 int main() {
     using namespace signal_kernels::algorithms;
 
-    // 25 samples at 0.0, then 25 samples at 10.0 — a step at index 25.
+    // 25 samples at 0.0, then 25 samples at 10.0 -- a step at index 25.
     std::vector<double> series(50, 0.0);
     for (size_t i = 25; i < 50; ++i) series[i] = 10.0;
 
@@ -182,7 +182,7 @@ point lands within index 25 ±1.)
 
 ### 4. SARIMA forecast
 
-`SARIMA(p, d, q, P, D, Q, s)` — call `fit(series)` then `forecast(horizon)`.
+`SARIMA(p, d, q, P, D, Q, s)` -- call `fit(series)` then `forecast(horizon)`.
 With seasonal orders off, use `s = 1`. `forecast` always returns a vector of
 length `horizon`; an unfitted model returns zeros.
 
@@ -236,8 +236,8 @@ ctest --test-dir build -C Debug --output-on-failure
 
 Tests use [doctest](https://github.com/doctest/doctest). CMake uses a vendored
 copy at `tests/third_party/doctest/doctest.h` if present, otherwise it fetches
-doctest `v2.4.11` via `FetchContent` (so the test build — unlike the library
-itself — requires network access on first configure unless doctest is vendored).
+doctest `v2.4.11` via `FetchContent` (so the test build -- unlike the library
+itself -- requires network access on first configure unless doctest is vendored).
 The test targets are gated on `SIGNAL_KERNELS_BUILD_TESTS`, which defaults to
 `ON` only when `signal-kernels` is the top-level project.
 

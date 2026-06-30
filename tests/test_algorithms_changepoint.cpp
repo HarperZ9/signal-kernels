@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — changepoint module
+// Tests: algorithms -- changepoint module
 //
 // Known-value checks:
 //   - PELT on flat signal = no change points
@@ -20,14 +20,14 @@ using namespace signal_kernels::algorithms;
 
 TEST_SUITE("algorithms::changepoint") {
 
-    TEST_CASE("flat signal — no change points") {
+    TEST_CASE("flat signal -- no change points") {
         std::vector<double> series(50, 5.0);
         auto cps = pelt(series, cost_l2, bic_penalty(50), 2);
         CHECK(cps.empty());
     }
 
-    TEST_CASE("step function — PELT recovers step index ±1") {
-        // First 25 elements at 0.0, next 25 at 10.0 — step at index 25
+    TEST_CASE("step function -- PELT recovers step index ±1") {
+        // First 25 elements at 0.0, next 25 at 10.0 -- step at index 25
         std::vector<double> series(50, 0.0);
         for (size_t i = 25; i < 50; ++i) series[i] = 10.0;
         auto cps = pelt(series, cost_l2, bic_penalty(50), 2);
@@ -40,7 +40,7 @@ TEST_SUITE("algorithms::changepoint") {
         CHECK(near_25);
     }
 
-    TEST_CASE("two steps — PELT finds both") {
+    TEST_CASE("two steps -- PELT finds both") {
         // segment [0,20) = 0.0, [20,40) = 5.0, [40,60) = 0.0
         std::vector<double> series(60, 0.0);
         for (size_t i = 20; i < 40; ++i) series[i] = 5.0;

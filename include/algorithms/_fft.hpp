@@ -31,7 +31,7 @@ namespace signal_kernels::algorithms::detail {
 }
 
 // ---------------------------------------------------------------------------
-// fft_inplace — in-place radix-2 DIT Cooley-Tukey FFT
+// fft_inplace -- in-place radix-2 DIT Cooley-Tukey FFT
 //
 // dir = -1  => forward  (standard DFT definition: exp(-2πi·k·n/N))
 // dir = +1  => inverse  (caller must divide by N afterwards)
@@ -71,10 +71,10 @@ inline void fft_inplace(std::vector<std::complex<double>>& a, int dir) {
 }
 
 // ---------------------------------------------------------------------------
-// fft  — forward DFT (copy-in, returns complex spectrum)
-// ifft — inverse DFT (returns time-domain signal, divided by N)
-// magnitude_spectrum — returns |X[k]| for k = 0..N/2
-// power_spectrum     — returns |X[k]|^2 / N (one-sided, DC + N/2 bins)
+// fft  -- forward DFT (copy-in, returns complex spectrum)
+// ifft -- inverse DFT (returns time-domain signal, divided by N)
+// magnitude_spectrum -- returns |X[k]| for k = 0..N/2
+// power_spectrum     -- returns |X[k]|^2 / N (one-sided, DC + N/2 bins)
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline std::vector<std::complex<double>>

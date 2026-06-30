@@ -1,16 +1,18 @@
-﻿name: c++
+name: C++
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+
+permissions:
+  contents: read
 
 jobs:
   test:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: lukka/get-cmake@latest
+      - uses: actions/checkout@v7
       - name: Configure
         run: cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
       - name: Build

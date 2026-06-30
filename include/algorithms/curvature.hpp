@@ -4,7 +4,7 @@
 // algorithms/curvature.hpp -- Graph curvature: Forman-Ricci + Ollivier-Ricci
 //
 // Uses the existing we::data_science::GraphAnalysis Graph type from
-// data_science/graph_analysis.h indirectly — but to avoid a cross-module
+// data_science/graph_analysis.h indirectly -- but to avoid a cross-module
 // dependency this round, we define a lightweight Graph in _graph.hpp inline
 // here and typedef NodeId / EdgeCurvature.
 //
@@ -48,7 +48,7 @@ namespace signal_kernels::algorithms {
 using NodeId = uint32_t;
 
 // ---------------------------------------------------------------------------
-// _Graph — lightweight undirected weighted adjacency-list graph
+// _Graph -- lightweight undirected weighted adjacency-list graph
 // ---------------------------------------------------------------------------
 
 class Graph {
@@ -152,7 +152,7 @@ struct EdgeCurvature {
 };
 
 // ---------------------------------------------------------------------------
-// forman_ricci — edge curvature via Sreejith et al. 2016 simplified formula
+// forman_ricci -- edge curvature via Sreejith et al. 2016 simplified formula
 //
 //   ric_F(e_{uv}) = w_{uv} * (w_{uv}/w_u + w_{uv}/w_v)
 //                 - sum_{e' sharing endpoint with e, e' != e} w_{e'} / sqrt(w_e * w_{e'})
@@ -188,12 +188,12 @@ forman_ricci(const Graph& g, NodeId u, NodeId v) noexcept {
 }
 
 // ---------------------------------------------------------------------------
-// ollivier_ricci — Ollivier (2009) edge curvature
+// ollivier_ricci -- Ollivier (2009) edge curvature
 //
 //   kappa(u,v) = 1 - W_1(mu_u, mu_v) / d(u,v)
 //
 // mu_x = uniform distribution over neighbors of x (alpha = 0.5 lazy random
-// walk variant is supported but defaulted off — use the 1-step neighbor mass).
+// walk variant is supported but defaulted off -- use the 1-step neighbor mass).
 // alpha parameter: mass fraction on the node itself (lazy RW): 0 = non-lazy.
 // EMD solved by sorting the support and computing the L1 distance.
 // ---------------------------------------------------------------------------

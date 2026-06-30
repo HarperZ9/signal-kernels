@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — curvature module (Forman-Ricci + Ollivier-Ricci)
+// Tests: algorithms -- curvature module (Forman-Ricci + Ollivier-Ricci)
 //
 // Known-value checks:
 //   - Triangle graph (K3): Forman-Ricci(u,v) = 4 - 2 - 2 = 0 for each edge
