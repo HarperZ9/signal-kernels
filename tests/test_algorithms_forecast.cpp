@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — forecast module (SARIMA + VAR)
+// Tests: algorithms -- forecast module (SARIMA + VAR)
 //
 // Known-value checks:
 //   - SARIMA AR(1) on AR(1)-generated series recovers AR coef ±5%

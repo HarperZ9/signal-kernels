@@ -2,7 +2,7 @@
 # signal-kernels: header-only signal-processing, entropy, change-point,
 # information-theory, curvature, and forecast algorithms.
 #
-# Header-only (signal-kernels is an INTERFACE target — no compiled sources).
+# Header-only (signal-kernels is an INTERFACE target -- no compiled sources).
 # All algorithm headers live in include/algorithms/.
 # No external runtime dependencies (C++ standard library only).
 # =============================================================================
@@ -19,7 +19,7 @@ if(NOT WIN32)
     message(FATAL_ERROR "signal-kernels targets Windows x64 only.")
 endif()
 
-# Header-only interface library — consumers inherit include path
+# Header-only interface library -- consumers inherit include path
 add_library(signal-kernels INTERFACE)
 add_library(signal-kernels::signal-kernels ALIAS signal-kernels)
 target_compile_features(signal-kernels INTERFACE cxx_std_23)
@@ -29,7 +29,7 @@ target_include_directories(signal-kernels INTERFACE
     $<INSTALL_INTERFACE:include>
 )
 
-# MSVC warning guard — consumers that link signal-kernels get correct /W4 level
+# MSVC warning guard -- consumers that link signal-kernels get correct /W4 level
 if(MSVC)
     target_compile_options(signal-kernels INTERFACE
         /W4 /WX /permissive- /Zc:__cplusplus
@@ -37,7 +37,7 @@ if(MSVC)
 endif()
 
 # -----------------------------------------------------------------------------
-# Tests — built and run via CTest when this is the top-level project.
+# Tests -- built and run via CTest when this is the top-level project.
 # Toggle with -DSIGNAL_KERNELS_BUILD_TESTS=ON/OFF.
 # -----------------------------------------------------------------------------
 option(SIGNAL_KERNELS_BUILD_TESTS
@@ -89,7 +89,7 @@ if(SIGNAL_KERNELS_BUILD_TESTS)
 
     # Third-party doctest trips C5285 (specializing std::tuple, forbidden by
     # N5014) on newer MSVC; with /WX that becomes a hard error. Suppress that one
-    # warning for the test target only — first-party code keeps strict /W4 /WX.
+    # warning for the test target only -- first-party code keeps strict /W4 /WX.
     if(MSVC)
         target_compile_options(signal-kernels-tests PRIVATE /wd5285)
     endif()

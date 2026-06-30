@@ -24,7 +24,7 @@
 namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
-// WelfordAccumulator — O(1)-per-sample numerically stable variance
+// WelfordAccumulator -- O(1)-per-sample numerically stable variance
 // ---------------------------------------------------------------------------
 
 class WelfordAccumulator {
@@ -55,7 +55,7 @@ private:
 };
 
 // ---------------------------------------------------------------------------
-// log_sum_exp — numerically stable log(sum(exp(x_i)))
+// log_sum_exp -- numerically stable log(sum(exp(x_i)))
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline double log_sum_exp(std::span<const double> xs) noexcept {
@@ -68,7 +68,7 @@ private:
 }
 
 // ---------------------------------------------------------------------------
-// SmallMatrix — dense row-major matrix ≤ 32x32, heap-allocated via vector
+// SmallMatrix -- dense row-major matrix ≤ 32x32, heap-allocated via vector
 //
 // Used for Yule-Walker and SARIMA normal equations.
 // ---------------------------------------------------------------------------
@@ -137,7 +137,7 @@ private:
 };
 
 // ---------------------------------------------------------------------------
-// autocorrelation — sample ACF at lag k (Pearson normalization)
+// autocorrelation -- sample ACF at lag k (Pearson normalization)
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline double autocorrelation(std::span<const double> series,
@@ -160,7 +160,7 @@ private:
 }
 
 // ---------------------------------------------------------------------------
-// build_toeplitz_rhs — helpers for Yule-Walker
+// build_toeplitz_rhs -- helpers for Yule-Walker
 // Build the R*phi = r system: R is Toeplitz from acf[0..p-1], r is acf[1..p]
 // ---------------------------------------------------------------------------
 

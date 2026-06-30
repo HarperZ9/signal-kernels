@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — causal module (Granger causality)
+// Tests: algorithms -- causal module (Granger causality)
 //
 // Known-value checks:
 //   - Self-causality produces positive F-stat

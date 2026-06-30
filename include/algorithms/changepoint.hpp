@@ -30,7 +30,7 @@
 namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
-// Changepoint — detected change point with location and segment cost
+// Changepoint -- detected change point with location and segment cost
 // ---------------------------------------------------------------------------
 
 struct Changepoint {
@@ -39,14 +39,14 @@ struct Changepoint {
 };
 
 // ---------------------------------------------------------------------------
-// CostFn — cost(series, start, end) over half-open interval [start, end)
+// CostFn -- cost(series, start, end) over half-open interval [start, end)
 //   Must satisfy subadditivity for PELT pruning to be exact.
 // ---------------------------------------------------------------------------
 
 using CostFn = std::function<double(std::span<const double>, size_t, size_t)>;
 
 // ---------------------------------------------------------------------------
-// cost_l2 — sum of squared deviations from segment mean (L2 / variance cost)
+// cost_l2 -- sum of squared deviations from segment mean (L2 / variance cost)
 //   C(s,t) = sum_{i=s}^{t-1} (x_i - mu)^2   where mu = mean(x[s..t))
 //   Uses the identity: C = sum(x^2) - n*mu^2  via prefix sums.
 // ---------------------------------------------------------------------------
@@ -85,8 +85,8 @@ struct PrefixSums {
 }
 
 // ---------------------------------------------------------------------------
-// cost_l1 — mean absolute deviation from median (L1 / robust cost)
-//   Exact computation O((hi-lo) log(hi-lo)) per segment — appropriate for
+// cost_l1 -- mean absolute deviation from median (L1 / robust cost)
+//   Exact computation O((hi-lo) log(hi-lo)) per segment -- appropriate for
 //   the penalty budget used in anti-cheat timing analysis.
 // ---------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ struct PrefixSums {
 }
 
 // ---------------------------------------------------------------------------
-// cost_poisson — negative log-likelihood for Poisson rate model
+// cost_poisson -- negative log-likelihood for Poisson rate model
 //   C(s,t) = -2 * n * (mu * log(mu) - mu)  where mu = mean(x[s..t))
 //   (drops constant terms that cancel in differences)
 // ---------------------------------------------------------------------------
@@ -126,7 +126,7 @@ struct PrefixSums {
 // Global cost_l2 / cost_l1 / cost_poisson exposed as callable tag types
 // so callers can pass them without constructing via make_* above.
 // Usage: pelt(series, cost_l2, penalty, min_size)
-// These are thin adapters that rebuild prefix sums per call — use the
+// These are thin adapters that rebuild prefix sums per call -- use the
 // _make() variants for repeated use on the same series.
 
 namespace {
@@ -172,7 +172,7 @@ const CostFn cost_poisson = [](std::span<const double> s, size_t lo, size_t hi) 
 }
 
 // ---------------------------------------------------------------------------
-// pelt — Pruned Exact Linear Time change-point detection
+// pelt -- Pruned Exact Linear Time change-point detection
 //
 // Killick, Fearnhead, Eckley (2012).
 // Returns the list of detected change points (NOT including index 0 or n).

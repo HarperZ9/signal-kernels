@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — _fft module
+// Tests: algorithms -- _fft module
 //
 // Known-value checks:
 //   - DC input => FFT output[0] = N * value, all others ≈ 0

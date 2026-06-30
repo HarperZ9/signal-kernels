@@ -1,4 +1,4 @@
-// Best-effort demo — not runtime-verified by author.
+// Best-effort demo -- not runtime-verified by author.
 // =============================================================================
 // examples/demo_pipeline.cpp
 //
@@ -6,7 +6,7 @@
 // existing public function or type from include/algorithms/. Output is printed
 // to stdout; nothing is read from disk or the network.
 //
-// Build (header-only — just put include/ on the search path), e.g. with MSVC:
+// Build (header-only -- just put include/ on the search path), e.g. with MSVC:
 //   cl /std:c++latest /EHsc /I ..\include demo_pipeline.cpp
 //
 // Or add this file as an executable in your own CMake project that links the

@@ -2,12 +2,12 @@
 // =============================================================================
 // algorithms/information.hpp -- Information-theoretic divergences + TE
 //
-// mutual_information  — histogram-based, pure stdlib
-// transfer_entropy    — Schreiber (2000) TE via empirical joint distribution
-// kl_divergence       — KL(P||Q)
-// js_divergence       — Jensen-Shannon divergence (symmetric, bounded in [0,1])
-// hellinger           — Hellinger distance
-// wasserstein_1d      — Earth Mover's Distance on sorted univariate distributions
+// mutual_information  -- histogram-based, pure stdlib
+// transfer_entropy    -- Schreiber (2000) TE via empirical joint distribution
+// kl_divergence       -- KL(P||Q)
+// js_divergence       -- Jensen-Shannon divergence (symmetric, bounded in [0,1])
+// hellinger           -- Hellinger distance
+// wasserstein_1d      -- Earth Mover's Distance on sorted univariate distributions
 //
 // Namespace: signal_kernels::algorithms
 // =============================================================================
@@ -29,7 +29,7 @@
 namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
-// histogram_bin — map value in [lo, hi] to bin index in [0, bins)
+// histogram_bin -- map value in [lo, hi] to bin index in [0, bins)
 // ---------------------------------------------------------------------------
 
 namespace detail_info {
@@ -44,7 +44,7 @@ namespace detail_info {
 } // namespace detail_info
 
 // ---------------------------------------------------------------------------
-// mutual_information — I(X;Y) = H(X) + H(Y) - H(X,Y)  [bits]
+// mutual_information -- I(X;Y) = H(X) + H(Y) - H(X,Y)  [bits]
 //
 // Histogram estimator with equal-width binning.  Both series must have the
 // same length.
@@ -85,7 +85,7 @@ mutual_information(std::span<const double> x,
 }
 
 // ---------------------------------------------------------------------------
-// transfer_entropy — Schreiber (2000) TE(source → target)
+// transfer_entropy -- Schreiber (2000) TE(source → target)
 //
 //   TE(X→Y) = sum p(y_{t+1}, y_t^{(l)}, x_t^{(k)})
 //              * log2[ p(y_{t+1} | y_t^{(l)}, x_t^{(k)}) /
@@ -124,7 +124,7 @@ transfer_entropy(std::span<const double> source,
     auto dt = discretize(target);
 
     // Count joint and marginal tables
-    // State = (y_{t+1}, y_t^{(1)}, x_t^{(1)}) — use l=k=1 regardless of arg
+    // State = (y_{t+1}, y_t^{(1)}, x_t^{(1)}) -- use l=k=1 regardless of arg
     // for the histogram approach (general k,l would require exponential tables)
     std::map<std::tuple<int,int,int>, uint64_t> joint3; // (y+1, yl, xl)
     std::map<std::pair<int,int>,       uint64_t> joint2; // (y+1, yl)
@@ -174,7 +174,7 @@ transfer_entropy(std::span<const double> source,
 }
 
 // ---------------------------------------------------------------------------
-// kl_divergence — KL(P || Q) = sum(P * log2(P/Q)) [bits]
+// kl_divergence -- KL(P || Q) = sum(P * log2(P/Q)) [bits]
 //
 // Both spans must be equal length normalized probability distributions.
 // Returns +inf if Q has a zero where P > 0 (handled by returning large value).
@@ -194,7 +194,7 @@ kl_divergence(std::span<const double> p,
 }
 
 // ---------------------------------------------------------------------------
-// js_divergence — JSD(P||Q) = 0.5*KL(P||M) + 0.5*KL(Q||M) where M=(P+Q)/2
+// js_divergence -- JSD(P||Q) = 0.5*KL(P||M) + 0.5*KL(Q||M) where M=(P+Q)/2
 //   Bounded in [0, 1] (bits).
 // ---------------------------------------------------------------------------
 
@@ -208,7 +208,7 @@ js_divergence(std::span<const double> p,
 }
 
 // ---------------------------------------------------------------------------
-// hellinger — H(P,Q) = (1/sqrt(2)) * sqrt(sum((sqrt(p)-sqrt(q))^2))
+// hellinger -- H(P,Q) = (1/sqrt(2)) * sqrt(sum((sqrt(p)-sqrt(q))^2))
 //   Bounded in [0, 1].
 // ---------------------------------------------------------------------------
 
@@ -225,7 +225,7 @@ hellinger(std::span<const double> p,
 }
 
 // ---------------------------------------------------------------------------
-// wasserstein_1d — Earth Mover's Distance between two 1D distributions
+// wasserstein_1d -- Earth Mover's Distance between two 1D distributions
 //
 // Accepts raw sample vectors (not probability distributions).  Sorts both
 // and computes the L1 distance between their empirical CDFs via the

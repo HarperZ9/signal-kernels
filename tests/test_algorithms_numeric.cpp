@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — _numeric module
+// Tests: algorithms -- _numeric module
 //
 // Known-value checks:
 //   - WelfordAccumulator matches naive variance

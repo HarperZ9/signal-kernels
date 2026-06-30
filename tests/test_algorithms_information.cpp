@@ -1,5 +1,5 @@
 // =============================================================================
-// Tests: algorithms — information module
+// Tests: algorithms -- information module
 //
 // Known-value checks:
 //   - mutual_information(X, X) = H(X) (self-MI)

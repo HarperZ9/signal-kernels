@@ -54,17 +54,17 @@ scientific signal processing.
 
 ## Modules
 
-- `algorithms/entropy.hpp` — Shannon, Rényi, Tsallis, min, block, spectral, and
+- `algorithms/entropy.hpp` -- Shannon, Rényi, Tsallis, min, block, spectral, and
   permutation entropy.
-- `algorithms/information.hpp` — mutual information, transfer entropy, and
+- `algorithms/information.hpp` -- mutual information, transfer entropy, and
   KL / Jensen-Shannon / Hellinger / Wasserstein divergences.
-- `algorithms/causal.hpp` — Granger causality test.
-- `algorithms/changepoint.hpp` — PELT (Pruned Exact Linear Time) change-point
+- `algorithms/causal.hpp` -- Granger causality test.
+- `algorithms/changepoint.hpp` -- PELT (Pruned Exact Linear Time) change-point
   detection.
-- `algorithms/forecast.hpp` — SARIMA and VAR time-series forecasting.
-- `algorithms/curvature.hpp` — Forman-Ricci and Ollivier-Ricci graph curvature.
-- `algorithms/_fft.hpp` — radix-2 Cooley-Tukey FFT (internal).
-- `algorithms/_numeric.hpp` — Welford variance, log-sum-exp, small-matrix linear
+- `algorithms/forecast.hpp` -- SARIMA and VAR time-series forecasting.
+- `algorithms/curvature.hpp` -- Forman-Ricci and Ollivier-Ricci graph curvature.
+- `algorithms/_fft.hpp` -- radix-2 Cooley-Tukey FFT (internal).
+- `algorithms/_numeric.hpp` -- Welford variance, log-sum-exp, small-matrix linear
   algebra, autocorrelation, Yule-Walker (internal).
 
 ## Why this is publishable
@@ -93,7 +93,7 @@ Then include the headers you need:
 double h = signal_kernels::algorithms::shannon(probs);
 ```
 
-See [USAGE.md](USAGE.md) for a full walkthrough — the public function/class
+See [USAGE.md](USAGE.md) for a full walkthrough -- the public function/class
 list per header, worked examples with expected output, and build notes. A
 single end-to-end program lives at
 [`examples/demo_pipeline.cpp`](examples/demo_pipeline.cpp).
@@ -125,7 +125,7 @@ affect consumers of the header-only library.
 MIT. See [LICENSE](LICENSE).
 
 ---
-**Zain Dana Harper** — small tools with explicit edges.
+**Zain Dana Harper** -- small tools with explicit edges.
 [Portfolio](https://harperz9.github.io) · [HarperZ9](https://github.com/HarperZ9)
 <sub>Built with Claude Code; reviewed, tested, and owned by me.</sub>
 
@@ -138,3 +138,6 @@ cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
+
+See [AGENTS.md](AGENTS.md) for the repo-specific operating boundary and
+[CHANGELOG.md](CHANGELOG.md) for current delivery status.

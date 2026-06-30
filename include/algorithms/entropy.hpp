@@ -29,7 +29,7 @@
 namespace signal_kernels::algorithms {
 
 // ---------------------------------------------------------------------------
-// shannon — H = -sum(p * log2(p))  [bits]
+// shannon -- H = -sum(p * log2(p))  [bits]
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline double shannon(std::span<const double> probs) noexcept {
@@ -74,7 +74,7 @@ shannon_from_bytes(std::span<const uint8_t> bytes) noexcept {
 }
 
 // ---------------------------------------------------------------------------
-// renyi — H_alpha = (1/(1-alpha)) * log2(sum(p^alpha))
+// renyi -- H_alpha = (1/(1-alpha)) * log2(sum(p^alpha))
 //   alpha → 1 approaches Shannon; alpha = 2 is collision entropy.
 // ---------------------------------------------------------------------------
 
@@ -89,7 +89,7 @@ shannon_from_bytes(std::span<const uint8_t> bytes) noexcept {
 }
 
 // ---------------------------------------------------------------------------
-// tsallis — S_q = (1 - sum(p^q)) / (q - 1)
+// tsallis -- S_q = (1 - sum(p^q)) / (q - 1)
 //   q → 1 recovers Shannon (in nats*ln2 sense, here we keep bits via log2).
 // ---------------------------------------------------------------------------
 
@@ -103,7 +103,7 @@ shannon_from_bytes(std::span<const uint8_t> bytes) noexcept {
 }
 
 // ---------------------------------------------------------------------------
-// min_entropy — H_inf = -log2(max_p)
+// min_entropy -- H_inf = -log2(max_p)
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline double
@@ -114,7 +114,7 @@ min_entropy(std::span<const double> probs) noexcept {
 }
 
 // ---------------------------------------------------------------------------
-// block_entropy — entropy of non-overlapping L-grams over a byte sequence
+// block_entropy -- entropy of non-overlapping L-grams over a byte sequence
 //
 // Partitions seq into consecutive L-byte blocks, counts their occurrences,
 // and returns the Shannon entropy of the resulting distribution.
@@ -141,7 +141,7 @@ block_entropy(std::span<const uint8_t> seq, size_t block_size) {
 }
 
 // ---------------------------------------------------------------------------
-// spectral_entropy — entropy of the normalized power spectrum
+// spectral_entropy -- entropy of the normalized power spectrum
 //
 // Uses radix-2 FFT; pads signal to next power of two ≤ 2^16.
 // Returns 0 if signal is too short or all power is concentrated.
@@ -177,7 +177,7 @@ spectral_entropy(std::span<const double> signal,
 }
 
 // ---------------------------------------------------------------------------
-// permutation_entropy — Bandt & Pompe (2002) ordinal pattern entropy
+// permutation_entropy -- Bandt & Pompe (2002) ordinal pattern entropy
 //
 // order: embedding dimension (default 3), delay: time delay (default 1).
 // Returns value in [0, log2(order!)] bits.

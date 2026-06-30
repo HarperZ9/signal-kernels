@@ -121,7 +121,7 @@ ols_ssr(const std::vector<std::vector<double>>& X,
 } // namespace detail_causal
 
 // ---------------------------------------------------------------------------
-// granger_causality — tests if x Granger-causes y
+// granger_causality -- tests if x Granger-causes y
 // ---------------------------------------------------------------------------
 
 [[nodiscard]] inline GrangerResult
