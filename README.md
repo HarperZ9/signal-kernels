@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/assets/zentropy-banner.png" alt="signal-kernels" width="100%"></p>
+
 # Signal Kernels
 
 ![Signal Kernels hero](docs/brand/signal-kernels-hero.png)
@@ -141,3 +143,7 @@ ctest --test-dir build --output-on-failure
 
 See [AGENTS.md](AGENTS.md) for the repo-specific operating boundary and
 [CHANGELOG.md](CHANGELOG.md) for current delivery status.
+
+---
+
+**[Zentropy Labs](https://github.com/ZentropyLabs-ai)** · order out of entropy. An independent lab building evidence-first tools that leave a re-checkable artifact behind. Built by Zain Dana Harper in Seattle. The full workbench is at [Project Telos](https://harperz9.github.io).
