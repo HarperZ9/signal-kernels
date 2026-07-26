@@ -20,3 +20,6 @@ CMakeFiles/
 Testing/
 compile_commands.json
 .vs/
+
+# Local-only Claude instructions (global standard: never commit)
+CLAUDE.local.md
