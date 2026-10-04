@@ -10,7 +10,7 @@
 cmake_minimum_required(VERSION 3.24)
 
 project(signal-kernels
-    VERSION     1.0.0
+    VERSION     1.1.0
     DESCRIPTION "Signal processing, entropy, change-point, and forecast algorithms"
     LANGUAGES   CXX
 )
