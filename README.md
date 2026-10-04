@@ -40,7 +40,7 @@ Windows x64/MSVC, while the headers are standard-library-only.
 
 > Header-only C++23 signal/information-theory library: entropy, MI/transfer entropy, divergences, Granger, PELT, FFT, and forecasting.
 
-[![license: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![license: FSL-1.1-MIT](https://img.shields.io/badge/license-FSL--1.1--MIT-blue.svg)](LICENSE)
 ![C++23](https://img.shields.io/badge/C%2B%2B-23-blue.svg)
 [![CI](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml/badge.svg)](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml)
 ![header-only](https://img.shields.io/badge/header--only-C%2B%2B23-success.svg)
@@ -124,7 +124,9 @@ affect consumers of the header-only library.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+From v1.1.0, code is licensed FSL-1.1-MIT. Earlier releases remain under MIT. FSL-1.1-MIT is the Functional Source License, Version 1.1, with MIT as the future licence: each release becomes available under MIT two years after it is made available. See [LICENSE](LICENSE). Every commit in this repository is by the author.
+
+The vendored test framework `tests/third_party/doctest/doctest.h` is doctest 2.4.11 by Viktor Kirilov, under its own MIT licence ([tests/third_party/doctest/LICENSE.txt](tests/third_party/doctest/LICENSE.txt)). It is test-only and not relicensed.
 
 ---
 **Zain Dana Harper** -- small tools with explicit edges.
