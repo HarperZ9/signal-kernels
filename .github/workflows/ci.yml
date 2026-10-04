@@ -19,3 +19,9 @@ jobs:
         run: cmake --build build --config Debug -j 2
       - name: Test
         run: ctest --test-dir build -C Debug --output-on-failure
+  art-receipts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Verify art receipt digests
+        run: python3 scripts/check_art_receipts.py
