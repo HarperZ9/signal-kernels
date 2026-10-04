@@ -1,10 +1,20 @@
-<p align="center"><img src=".github/assets/banner.png" alt="signal-kernels" width="100%"></p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/HarperZ9/signal-kernels/main/docs/art/hero-dark.svg">
+  <img src="https://raw.githubusercontent.com/HarperZ9/signal-kernels/main/docs/art/hero-light.svg" alt="signal-kernels: C++23 header-only entropy, causality, and forecasting kernels. 6 wavering traces run from the left and narrow into a bright core over a row of tick marks." width="100%">
+</picture>
 
-# Signal Kernels
+# signal-kernels
 
-![Signal Kernels hero](docs/brand/signal-kernels-hero.png)
+C++23 header-only entropy, causality, and forecasting kernels.
 
-> Analyze information flow with C++23 signal, entropy, causality, and forecasting kernels.
+```
+cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
+```
+
+[![version: 1.1.0](https://img.shields.io/badge/version-1.1.0-e6e1d6?style=flat-square&labelColor=1a1712)](https://github.com/HarperZ9/signal-kernels/releases/latest)
+[![CI](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml/badge.svg)](https://github.com/HarperZ9/signal-kernels/actions/workflows/ci.yml)
+[![license](https://img.shields.io/badge/license-FSL--1.1--MIT-e6e1d6?style=flat-square&labelColor=1a1712)](https://github.com/HarperZ9/signal-kernels/blob/main/LICENSE)
+![C++23](https://img.shields.io/badge/language-C%2B%2B23-e6e1d6?style=flat-square&labelColor=1a1712)
 
 Signal Kernels is a header-only C++23 library for scientific signal processing
 and telemetry analytics. It includes entropy measures, divergence metrics,
