@@ -121,6 +121,14 @@ footer.foot p{max-width:70ch;margin:0 0 .6rem}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{transition-duration:0s!important;animation-duration:0s!important;animation-iteration-count:1!important;scroll-behavior:auto!important}
 }
+.film{margin:1rem 0 0;max-width:56rem}
+.film video{width:100%;height:auto;display:block;background:#000;border:1px solid var(--line)}
+.film figcaption{font-size:.9rem;color:var(--ink-soft);margin-top:.55rem;max-width:44rem;line-height:1.5}
+.soon{font-family:var(--font-mono);font-size:.8rem;color:var(--muted);margin-top:.8rem}
+ol.walkthrough{padding-left:1.4rem;max-width:56rem;margin:1rem 0 0}
+ol.walkthrough li{margin:0 0 1.4rem}
+ol.walkthrough h3{margin:0 0 .3rem;font-size:1.05rem}
+ol.walkthrough p{margin:0 0 .3rem;max-width:44rem}
 
 /* generic scene kit: a pipeline strip, an input/output panel, a case picker, a table */
 .kscene{display:flex;flex-direction:column;gap:.8rem}
@@ -172,6 +180,12 @@ footer.foot p{max-width:70ch;margin:0 0 .6rem}
     <li><b>One demo program</b><code>examples/demo_pipeline.cpp</code> calls each module on fixed inputs.</li>
   </ul>
   <p class="src">Source: <a href="https://github.com/HarperZ9/signal-kernels/blob/386aeb98f6e388b8b7573bdc01081146a28578c8/README.md">README.md</a> at 386aeb9 (source at 386aeb9)</p>
+</section>
+
+<section class="block wrap" aria-labelledby="watch">
+  <h2 id="watch">Watch</h2>
+  <p class="measure">No concept film fits this tool closely yet. The walkthrough below covers it in text, with real commands and output.</p>
+  <p class="soon">Video walkthrough: coming with the next release.</p>
 </section>
 
 <section class="block wrap" aria-labelledby="how">
@@ -229,13 +243,28 @@ footer.foot p{max-width:70ch;margin:0 0 .6rem}
   </div>
 </section>
 
-<section class="block wrap" aria-labelledby="try">
-  <h2 id="try">Try it</h2>
-  <div class="measure"><p>Build with CMake and MSVC; the bundled CMake file targets Windows x64, and the headers themselves are standard C++23.</p></div>
+<section class="block wrap" aria-labelledby="walkthrough">
+  <h2 id="walkthrough">Walkthrough</h2>
+  <p class="measure">Install it, run it once, then use the main feature. Each command below is real, and so is its output.</p>
+  <ol class="walkthrough">
+    <li><h3>Get it and build</h3><p>Clone and build with CMake and MSVC; the bundled CMake file targets Windows x64.</p>
 <pre class="cmd"><code>$ git clone https://github.com/HarperZ9/signal-kernels && cd signal-kernels
 $ cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
-$ cmake --build build --config Debug
-$ ctest --test-dir build -C Debug --output-on-failure</code></pre>
+$ cmake --build build --config Debug</code></pre></li>
+    <li><h3>Run the tests</h3><p>The test binary covers every header.</p>
+<pre class="cmd"><code>$ ctest --test-dir build -C Debug --output-on-failure</code></pre></li>
+    <li><h3>Entropy</h3><p>The demo program <code>examples/demo_pipeline.cpp</code>, built in Release, printed these entropy values.</p>
+<pre class="cmd"><code>
+<span class="out">shannon(uniform-8)        = 3.000000 bits
+renyi(uniform-8, a=2)     = 3.000000 bits
+min_entropy(uniform-8)    = 3.000000 bits
+shannon_from_bytes(0..255) = 8.000000 bits
+permutation_entropy(o=3)  = 1.842371 bits</span></code></pre></li>
+    <li><h3>Change points</h3><p>On a step series, PELT finds one change point at index 25.</p>
+<pre class="cmd"><code>input: step = 25 x 0.0, then 25 x 10.0
+<span class="out">pelt(L2) detected 1 change point(s):
+  index=25  segment_cost=0.000000</span></code></pre></li>
+  </ol>
   <p class="src">Values above came from examples/demo_pipeline.cpp built with MSVC 19.50 in Release from commit 386aeb9. The test binary reported 99 cases and 245 assertions passing.</p>
 </section>
 
