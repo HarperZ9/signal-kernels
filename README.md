@@ -21,6 +21,12 @@ and telemetry analytics. It includes entropy measures, divergence metrics,
 causal tests, change-point detection, FFT helpers, graph curvature, and
 forecasting primitives.
 
+## See it work, step by step
+
+The [animated explainer](https://harperz9.github.io/repo-explainers/signal-kernels.html)
+walks through each module of the library on the inputs of examples/demo_pipeline.cpp: entropy, divergences, Granger causality, PELT change points, SARIMA and VAR forecasts, and graph curvature. Every value on it is output from this repository. Its
+source is [docs/explainer/index.html](docs/explainer/index.html).
+
 ## Why it matters
 
 Large AI and research systems need reliable measurement kernels before a model
