@@ -27,6 +27,49 @@ The [animated explainer](https://harperz9.github.io/repo-explainers/signal-kerne
 walks through each module of the library on the inputs of examples/demo_pipeline.cpp: entropy, divergences, Granger causality, PELT change points, SARIMA and VAR forecasts, and graph curvature. Every value on it is output from this repository. Its
 source is [docs/explainer/index.html](docs/explainer/index.html).
 
+## Watch
+
+No concept film fits this tool closely yet. The walkthrough below covers it in text, with real commands and output.
+
+Video walkthrough: coming with the next release.
+
+## Walkthrough
+
+Install it, run it once, then use the main feature. Each command below is real, and so is its output.
+
+1. **Get it and build.** Clone and build with CMake and MSVC; the bundled CMake file targets Windows x64.
+
+   ```text
+   $ git clone https://github.com/HarperZ9/signal-kernels && cd signal-kernels
+   $ cmake -S . -B build -DSIGNAL_KERNELS_BUILD_TESTS=ON
+   $ cmake --build build --config Debug
+   ```
+
+2. **Run the tests.** The test binary covers every header.
+
+   ```text
+   $ ctest --test-dir build -C Debug --output-on-failure
+   ```
+
+3. **Entropy.** The demo program `examples/demo_pipeline.cpp`, built in Release, printed these entropy values.
+
+   ```text
+
+   shannon(uniform-8)        = 3.000000 bits
+   renyi(uniform-8, a=2)     = 3.000000 bits
+   min_entropy(uniform-8)    = 3.000000 bits
+   shannon_from_bytes(0..255) = 8.000000 bits
+   permutation_entropy(o=3)  = 1.842371 bits
+   ```
+
+4. **Change points.** On a step series, PELT finds one change point at index 25.
+
+   ```text
+   input: step = 25 x 0.0, then 25 x 10.0
+   pelt(L2) detected 1 change point(s):
+     index=25  segment_cost=0.000000
+   ```
+
 ## Why it matters
 
 Large AI and research systems need reliable measurement kernels before a model
