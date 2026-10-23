@@ -171,7 +171,7 @@ ol.walkthrough p{margin:0 0 .3rem;max-width:44rem}
 <section class="block wrap" aria-labelledby="for-you">
   <h2 id="for-you">What it does for you</h2>
   <div class="measure">
-    <p>Before a model interprets noisy telemetry or scientific data, something has to measure it reliably. signal-kernels is a header-only C++23 library of well-known, published measures: entropy, divergences, causal tests, change-point detection, forecasting and graph curvature. It depends only on the standard library, so you add a folder of headers and link one target.</p>
+    <p>Before a model interprets noisy telemetry or scientific data, something has to measure it reliably. signal-kernels is a header-only C++23 library of well-known, published measures: entropy, divergences, causal tests, change-point detection, forecasting and graph curvature. It builds on the standard library alone, so you add a folder of headers and link one target.</p>
   </div>
   <ul class="uses">
     <li><b>Header-only</b>Include the headers you need; the only dependency is the C++ standard library.</li>
@@ -263,11 +263,11 @@ permutation_entropy(o=3)  = 1.842371 bits</span></code></pre></li>
 </section>
 
 <section class="block wrap" aria-labelledby="limits">
-  <h2 id="limits">What it does not do</h2>
+  <h2 id="limits">Limits</h2>
   <ul class="limits">
     <li>The bundled CMakeLists.txt targets Windows x64 with MSVC and stops on other platforms. The headers are standard C++ and can be used elsewhere with your own build.</li>
-    <li>These are published methods. The library offers no new statistics and makes no claim beyond each method's assumptions.</li>
-    <li>A Granger result says past x helps predict y. It does not show that x causes y.</li>
+    <li>These are published methods, each valid under its own assumptions. Check those assumptions against your data.</li>
+    <li>A Granger result says past x helps predict y. Causation needs a separate argument.</li>
     <li>The package is intended for defensive and research analytics.</li>
   </ul>
   <p class="src">Source: README.md at 386aeb9, "Platform" and "Overview"; PUBLIC-DISCLAIMER.md</p>
